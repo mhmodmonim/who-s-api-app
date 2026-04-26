@@ -1,0 +1,18 @@
+{
+	"data": {
+		"caseType": "positive",
+		"firstName": "John",
+		"lastName": "Nixon",
+		"phone": "541-754-3010",
+		"email": "john@gmail.com",
+		"dateOfBirth": "1989-04-26",
+		"country": "USA"
+	},
+	"meta": {
+		"code": 200,
+		"message": "Success",
+		"description": "Case reported successfully",
+		"datetime": "2021-07-29T05:58:02Z",
+		"transactionId": "44b32520-61ee-47b4-907d-fa15869f3c4d"
+	}
+}

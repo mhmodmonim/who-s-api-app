@@ -1,0 +1,67 @@
+#%RAML 1.0 Library
+usage: Data types for WHO SAPI API
+
+types:
+
+  # 🔹 Core domain model (reusable)
+  CovidCase:
+    type: object
+    additionalProperties: false
+    description: Represents a COVID case record.
+    properties:
+      caseType:
+        type: string
+        example: "Positive"
+      firstName:
+        type: string
+        example: "John"
+      lastName:
+        type: string
+        example: "Doe"
+      phone:
+        type: string
+        example: "+1234567890"
+      email?:
+        type: string
+        example: "john.doe@example.com"
+      dateOfBirth:
+        type: date-only
+        example: "2024-01-01"
+      country:
+        type: string
+        example: "USA"
+
+  # 🔹 Request model (input)
+  CreateCovidCaseRequest:
+    type: CovidCase
+    description: Request payload to create/report a COVID case.
+
+  # 🔹 Response metadata (standardized)
+  ApiResponseMetadata:
+    type: object
+    additionalProperties: false
+    properties:
+      code:
+        type: integer
+        example: 200
+      message:
+        type: string
+        example: "COVID case reported successfully."
+      description?:
+        type: string
+      datetime:
+        type: datetime
+        example: "2024-01-01T12:00:00Z"
+      transactionId:
+        type: string
+        example: "123e4567-e89b-12d3-a456-426614174000"
+
+  # 🔹 Response model (output)
+  CovidCaseResponse:
+    type: object
+    additionalProperties: false
+    properties:
+      data:
+        type: CovidCase
+      meta:
+        type: ApiResponseMetadata

@@ -1,0 +1,11 @@
+http:
+  port: "8081"
+  
+jms:
+  queue: "Q.WHO.COVID.CASE.REPORT"
+  user: "admin"
+  password: "![HmDT8ACqCmpKF5DDKwsxQg==]"
+  
+  
+  
+  
