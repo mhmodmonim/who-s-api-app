@@ -7,7 +7,7 @@
 	<version>1.0.0-SNAPSHOT</version>
 	<packaging>mule-application</packaging>
 
-	<name>who-sapi-main</name>
+	<name>who-sapi-main-app</name>
 
 	<description>Mule provide WHO with covid cases</description>
 	<properties>
@@ -70,7 +70,7 @@
 				<version>${mule.maven.plugin.version}</version>
 				<extensions>true</extensions>
 				<configuration>
-				<cloudhub2Deployment>
+					<cloudhub2Deployment>
 						<uri>https://anypoint.mulesoft.com</uri>
 						<provider>MC</provider>
 						<muleVersion>${app.runtime}</muleVersion>
@@ -153,6 +153,12 @@
 			<groupId>org.apache.activemq</groupId>
 			<artifactId>activemq-kahadb-store</artifactId>
 			<version>5.16.7</version>
+		</dependency>
+		<dependency>
+			<groupId>com.mulesoft.connectors</groupId>
+			<artifactId>mule4-google-pubsub-connector</artifactId>
+			<version>1.2.0</version>
+			<classifier>mule-plugin</classifier>
 		</dependency>
 	</dependencies>
 

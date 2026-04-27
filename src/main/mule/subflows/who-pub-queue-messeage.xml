@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:pubsub="http://www.mulesoft.org/schema/mule/pubsub" xmlns:jms="http://www.mulesoft.org/schema/mule/jms"
+	xmlns="http://www.mulesoft.org/schema/mule/core"
+	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/jms http://www.mulesoft.org/schema/mule/jms/current/mule-jms.xsd
+http://www.mulesoft.org/schema/mule/pubsub http://www.mulesoft.org/schema/mule/pubsub/current/mule-pubsub.xsd">
+	<jms:config name="JMS_Config" doc:name="JMS Config" doc:id="beab7412-f7ec-455c-9f68-270721712edd" >
+		<jms:active-mq-connection username="${secure::jms.user}" password="${secure::jms.password}" >
+			<jms:caching-strategy >
+				<jms:no-caching />
+			</jms:caching-strategy>
+			<jms:factory-configuration brokerUrl="tcp://localhost:61616" />
+		</jms:active-mq-connection>
+	</jms:config>
+	<pubsub:config name="Google_Pub_Sub_Configuration" doc:name="Google Pub Sub Configuration" doc:id="9f4efc4f-0566-4cde-adc4-c67da8213160" >
+		<pubsub:connection authenticationMethod="service_account" privateKeyId="${secure::google.pubsub.privateKeyId}" clientId="${secure::google.pubsub.clientId}" clientEmail="${secure::google.pubsub.clientEmail}" >
+			<pubsub:private-key ><![CDATA[${secure::google.pubsub.privateKey}]]></pubsub:private-key>
+		</pubsub:connection>
+	</pubsub:config>
+	<sub-flow name="who-activve-mqSub_Flow" doc:id="697e29b8-42ea-4881-ac46-5e11a17e4ff7" >
+		<logger level="INFO" doc:name="Start Log" doc:id="0588ff5d-3203-4acb-9883-ececbb5d736f" message="CorrelationId: #[vars.correlationId], TransactionId: #[vars.transactionId], message: Started Publishing to WHO queue, payload: #[payload]"/>
+		<!-- [STUDIO:"Publish To WHO Queue"]<jms:publish doc:name="Publish To WHO Queue" doc:id="51f83288-b71b-4ae1-905b-3261f0a405af" config-ref="JMS_Config" destination="${secure::jms.queue}">
+			<jms:message >
+				<jms:properties ><![CDATA[#[vars.dynamicProperties&#93;&#93;&#93;></jms:properties>
+			</jms:message>
+		</jms:publish> [STUDIO] -->
+		<pubsub:publish-message doc:name="Publish Message" doc:id="6800a4fe-0712-4147-88af-9f229bcc7724" config-ref="Google_Pub_Sub_Configuration" projectId="nomadic-thinker-494313-j7" topicName="Q.WHO.COVID.CASE.REPORT">
+			<pubsub:message ><![CDATA[#[payload]]]></pubsub:message>
+			<pubsub:attributes ><![CDATA[#[vars.dynamicProperties]]]></pubsub:attributes>
+		</pubsub:publish-message>
+		<logger level="INFO" doc:name="End Log" doc:id="829c92a0-5275-40fa-85c0-c5a51788af8c" message="CorrelationId: #[vars.correlationId], TransactionId: #[vars.transactionId], message: After Publishing to WHO queue, payload: #[payload]"/>
+	</sub-flow>
+</mule>
