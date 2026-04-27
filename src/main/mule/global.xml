@@ -12,7 +12,7 @@ http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/htt
 http://www.mulesoft.org/schema/mule/secure-properties http://www.mulesoft.org/schema/mule/secure-properties/current/mule-secure-properties.xsd">
 	<secure-properties:config name="Secure_Properties_Config" doc:name="Secure Properties Config" doc:id="e20d24b9-0115-4fb1-b407-0b8708aaac0d" file="${env}.yaml" key="${enc.key}" />
 	    <http:listener-config name="who-sapi-main-httpListenerConfig" basePath="covid">
-        <http:listener-connection host="0.0.0.0" port="${secure::http.port}" readTimeout="120000"/>
+        <http:listener-connection host="0.0.0.0" port="${secure::http.port}" readTimeout="120000" protocol="HTTPS"/>
     </http:listener-config>
     <apikit:config name="who-sapi-main-config" api="who-sapi-main.raml" outboundHeadersMapName="outboundHeaders" httpStatusVarName="httpStatus" />
 	
