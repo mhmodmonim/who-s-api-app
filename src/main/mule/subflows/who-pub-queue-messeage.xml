@@ -5,14 +5,6 @@
 	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
 http://www.mulesoft.org/schema/mule/jms http://www.mulesoft.org/schema/mule/jms/current/mule-jms.xsd
 http://www.mulesoft.org/schema/mule/pubsub http://www.mulesoft.org/schema/mule/pubsub/current/mule-pubsub.xsd">
-	<jms:config name="JMS_Config" doc:name="JMS Config" doc:id="beab7412-f7ec-455c-9f68-270721712edd" >
-		<jms:active-mq-connection username="${secure::jms.user}" password="${secure::jms.password}" >
-			<jms:caching-strategy >
-				<jms:no-caching />
-			</jms:caching-strategy>
-			<jms:factory-configuration brokerUrl="tcp://localhost:61616" />
-		</jms:active-mq-connection>
-	</jms:config>
 	<pubsub:config name="Google_Pub_Sub_Configuration" doc:name="Google Pub Sub Configuration" doc:id="9f4efc4f-0566-4cde-adc4-c67da8213160" >
 		<pubsub:connection authenticationMethod="service_account" privateKeyId="${secure::google.pubsub.privateKeyId}" clientId="${secure::google.pubsub.clientId}" clientEmail="${secure::google.pubsub.clientEmail}" >
 			<pubsub:private-key ><![CDATA[${secure::google.pubsub.privateKey}]]></pubsub:private-key>
